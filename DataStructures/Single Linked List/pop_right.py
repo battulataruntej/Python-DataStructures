@@ -15,38 +15,23 @@ class SingleLinkedList:
             self.tail.next = new_node
             self.tail = new_node
         self._length +=1
-    def pop_left(self):
-        if not self._length > 1:
+    def pop_right(self):
+        if not self._length:
+            raise Exception("Nothing to do as it is a Empty.!")
+        if self._length==1:
             self.head = self.tail = None
-        else:
-            tmp = self.head.next
-            self.head.next = None
-            self.head = tmp
-        self._length -=1
+        tmp_head = self.head
+        while tmp_head.next is not self.tail:
+            tmp_head = tmp_head.next
+        self.tail = tmp_head
+        self.tail.next =None
+        self._length-=1
         return self
-
-    def pop_left2(self):
-        if not self._length:
-            raise Exception("list is empty")
-        former_head=self.head
-        self.head = former_head.next
-        former_head.next = None
-        self._length -= 1
-        if not self._length:
-            self.tail =None
-        return self
-
-
-
-my_list = SingleLinkedList()
-
+my_list=SingleLinkedList()
 my_list.append(1)
 my_list.append(2)
 my_list.append(3)
 my_list.append(4)
-my_list.append(5)
-my_list.pop_left2()
-my_list.pop_left2()
-my_list.pop_left2()
+my_list.pop_right()
 print(my_list.head.value)
 print(my_list.tail.value)
